@@ -4,7 +4,8 @@ PImage bg1,bg2;
 int a,b; //enemy
 int x; //hpBlood
 int m,n; //treasure
-float s,t; //bg1,bg2
+float s; //bg1
+
 
 void setup () {
   size(640,480) ;  
@@ -25,7 +26,7 @@ void setup () {
   s=-640;
   
   //bg2
-  t=0;
+ 
   
   //img
   enemyImg=loadImage("img/enemy.png");
@@ -39,23 +40,26 @@ void setup () {
 
 void draw() {
   
-   //backgorund1
-   if (s==0){
+   //backgorund
+   image(bg1,s,0);
+   image(bg2,s-640,0);
+   
+   if(s<=640){
+     image(bg1,s,0);
+     image(bg2,s-640,0);
+   }
+   
+   if (s>640){
     s=-640;
   }
   
-  image(bg1,s,0);
-  s=s+0.5;
-  s=s%640;
+  if (s<0){
+    image(bg1,s,0);
+    image(bg2,s+640,0);
+  }
   
-   //background2
-   if (t==640){
-     t=-640;
-   }
-   
-  image(bg2,t,0);
-  t=t+0.5;  
-  t=t % 640;
+  image(bg1,s,0);
+  s=s+3;
   
   //enemy
   image(enemyImg,a,b);
@@ -73,6 +77,4 @@ void draw() {
   
   //treasure
   image(treasureImg,m,n);
-  
-  
 }
